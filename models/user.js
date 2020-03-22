@@ -15,7 +15,7 @@ var userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
 });
 
 userSchema.statics.auth = function(email,password,callback){

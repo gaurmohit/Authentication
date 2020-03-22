@@ -12,6 +12,13 @@ var failAttSchema = mongoose.Schema({
         required: true,
         trim: true,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+        required: true,
+        trim: true,
+        expires: 60*60*24,
+    },
 });
 
 failAttSchema.statics.checkIp = function(ip,callback){

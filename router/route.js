@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 var request = require('request');
 
-//bringing in models
+// bringing in models
 let User = require('../models/user.js');
 let FailAttempts = require('../models/failedAttempts.js');
 

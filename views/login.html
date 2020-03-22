@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+    <div class="container" > 
+        <div class="row"> 
+            <div class="col-md-3"></div>
+            <div class="col-md-6 main">
+                <% if(show_error) {  %>
+                    <h4><%= msg %></h4>
+                <% } %>
+                
+                <form action="/authenticate" method="post">	
+                    <h1> Signup form </h1>				
+                    <input class="box" type="email" name="email" id="email" placeholder="E-Mail " required />
+                    <br> 			
+                    <input class="box" type="password" name="password" id="password" placeholder="Password " required/>
+                    <br>
+                    
+                    <input type="hidden" id="use_captcha" name="use_captcha" readonly value=false />
+                    <div id="captcha" style="display: none;" class="g-recaptcha" data-sitekey="6LfU8-IUAAAAAEAj-ogpizmmj6tH60DuXV7UYoAO"></div><br>			
+                    <br> 
+                    
+                    <input type="submit" id="submitDetails" name="submitDetails" value="Submit" />
+                    <br> 	
+                </form>	
+            </div>
+        </div> 
+    </div>
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+<script>
+    $(document).ready(function() {
+        validateCaptcha();
+        $('#submitDetails').submit(function() {
+            alert()
+            console.log(result)
+        })
+    });
+
+    function validateCaptcha() {
+        $.ajax({
+            method: "GET",
+            url: "/show_captcha",
+            success: function(result){
+                console.log("result ============"+result);
+                if(result.status == true) {
+                    $("#use_captcha").val(true);
+                    $("#captcha").css("display", "block");
+                    return true;
+                }
+                else {
+                    $("#captcha").css("display", "none"); 
+                    $("#use_captcha").val(false);
+                    return true;
+                }
+            },
+            error: function(error) {
+                console.log("error =============== "+error);
+                return false;
+            }
+        });
+    }
+
+</script>
+</html>
